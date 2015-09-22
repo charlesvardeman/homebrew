@@ -1,0 +1,45 @@
+# Documentation: https://github.com/Homebrew/homebrew/blob/master/share/doc/homebrew/Formula-Cookbook.md
+#                http://www.rubydoc.info/github/Homebrew/homebrew/master/frames
+# PLEASE REMOVE ALL GENERATED COMMENTS BEFORE SUBMITTING YOUR PULL REQUEST!
+
+class Pellet < Formula
+  desc "Pellet: An Open Source OWL DL reasoner for Java"
+  homepage "https://github.com/Complexible/pellet"
+  url "https://github.com/Complexible/pellet/archive/2.3.1.zip"
+  sha256 ""
+  head "https://github.com/Complexible/pellet", :using => :git
+
+  # depends_on "cmake" => :build
+  depends_on "maven" => :build  # if your formula requires any X11/XQuartz components
+  head do
+      url "https://github.com/Complexible/pellet.git", :using => :git
+      depends_on "maven" => :build
+  end
+
+
+  def install
+    # ENV.deparallelize  # if your formula fails when building in parallel
+    if build.head?
+        system "mvn", "clean", "install"
+    end
+
+    if build.head?
+        lib.install Dir["cli/target/pelletcli/lib/*.jar"]
+        bin.install Dir["cli/target/pelletcli/bin/*"]
+        #bin.install_symlink bin/"pellet"
+    end
+  end
+
+  test do
+    # `test do` will create, run in and delete a temporary directory.
+    #
+    # This test will fail and we won't accept that! It's enough to just replace
+    # "false" with the main program this formula installs, but it'd be nice if you
+    # were more thorough. Run the test with `brew test pellet`. Options passed
+    # to `brew install` such as `--HEAD` also need to be provided to `brew test`.
+    #
+    # The installed folder is not in the path, so use the entire path to any
+    # executables being tested: `system "#{bin}/program", "do", "something"`.
+    system "false"
+  end
+end
