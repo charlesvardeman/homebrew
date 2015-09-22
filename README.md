@@ -1,7 +1,7 @@
 # homebrew
 Quick hack homebrew tap for the Pellet Reasoner. To install:
 ```bash
-brew tap charlesvardeman/homebrew
+brew tap charlesvardeman/taps
 brew install pellet --HEAD
 ```
 
