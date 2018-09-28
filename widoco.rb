@@ -2,9 +2,9 @@
 class Widoco < Formula
   desc "Wizard for documenting ontologies. WIDOCO is a step by step generator of HTML templates with the documentation of your ontology. It uses the LODE environment to create part of the template."
   homepage "https://zenodo.org/badge/latestdoi/11427075"
-  version "1.4.1"
-  url "https://github.com/dgarijo/Widoco/releases/download/v1.4.1/widoco-1.4.1-jar-with-dependencies.jar"
-  sha256 "dca272ff81ead2a806bd0c57d8b6a86b5d6ff6f43c5abf5c718a1da21a16fb98"
+  version "1.4.6"
+  url "https://github.com/dgarijo/Widoco/releases/download/v1.4.6/widoco-1.4.6-jar-with-dependencies.jar"
+  sha256 "aa5027816c06e8ac77c43a62901a046daf792b272fe79d44756806a6cc783179"
 
   # depends_on "cmake" => :build
   def install
