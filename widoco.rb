@@ -13,7 +13,7 @@ class Widoco < Formula
     bin.mkpath
 
 
-    (bin/"widoco").write <<-EOS.undent
+    (bin/"widoco").write <<-EOS
       #!/bin/bash
       # resolve links - $0 may be a softlink
 
