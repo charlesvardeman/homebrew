@@ -12,7 +12,7 @@ class Owl2jsonld < Formula
   def install
 
     libexec.install Dir["*"]
-    bin.mkpath 
+    bin.mkpath
 
 
     (bin/"owl2jsonld").write <<-EOS.undent
@@ -41,7 +41,7 @@ class Owl2jsonld < Formula
 
       exec "$JAVACMD" -jar "#{libexec}/owl2jsonld-#{version}-standalone.jar" "$@"
     EOS
-    (bin/"owl2jsonld").chmod 0555
+    (bin/"owl2jsonld").chmod 0777
     # libexec.install %w[bin]
     # bin.install_symlink libexec/"bin/titan.sh" => "titan"
     # bin.install_symlink libexec/"bin/rexster-console.sh" => "titan-rexster-console"
