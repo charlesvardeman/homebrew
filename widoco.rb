@@ -8,14 +8,14 @@ class Widoco < Formula
 
 
   def install
-
+    create_wrapper
     libexec.install Dir["*"]
-    bin.mkpath
+    bin.install "widoco"
+  end
 
-
-    (bin/"widoco").write <<-EOS
-      #!/bin/bash
-      # resolve links - $0 may be a softlink
+  private def create_wrapper
+    wrapper = '#!/usr/bin/env bash
+    # resolve links - $0 may be a softlink
 
       # If a specific java binary isn't specified search for the standard 'java' binary
       if [ -z "$JAVACMD" ] ; then
@@ -37,10 +37,11 @@ class Widoco < Formula
        exit 1
       fi
 
-      exec "$JAVACMD" -jar "#{libexec}/widoco-#{version}-jar-with-dependencies.jar" "$@"
-    EOS
-    (bin/"widoco").chmod 0777
+      exec "$JAVACMD" -jar "#{libexec}/widoco-#{version}-jar-with-dependencies.jar" "$@"''
+
+    File.write('widoco', wrapper)
   end
+
 
   test do
     # `test do` will create, run in and delete a temporary directory.
