@@ -6,42 +6,16 @@ class Widoco < Formula
   url "https://github.com/dgarijo/Widoco/releases/download/v1.4.7/widoco-1.4.7-jar-with-dependencies.jar"
   sha256 "0d9cd3a62beb74bdc7d634ab535a11aca7dde06c5365aaebde66f3412871b8ed"
 
+  bottle :unneeded
+  depends_on :java => "1.8+"
 
   def install
-    create_wrapper
-    libexec.install Dir["*"]
-    bin.install "widoco"
+    # Need to set JAVA_HOME manually since maven overrides 1.8 with 1.7+
+    cmd = Language::Java.java_home_cmd("1.8")
+    ENV["JAVA_HOME"] = Utils.popen_read(cmd).chomp
+    libexec.install "widoco-#{version}-jar-with-dependencies.jar" => "widoco.jar"
+    bin.write_jar_script libexec/"widoco.jar", "widoco"
   end
-
-  private def create_wrapper
-    wrapper = '#!/usr/bin/env bash
-    # resolve links - $0 may be a softlink
-
-      # If a specific java binary isn't specified search for the standard 'java' binary
-      if [ -z "$JAVACMD" ] ; then
-        if [ -n "$JAVA_HOME"  ] ; then
-         if [ -x "$JAVA_HOME/jre/sh/java" ] ; then
-         # IBM's JDK on AIX uses strange locations for the executables
-           JAVACMD="$JAVA_HOME/jre/sh/java"
-         else
-           JAVACMD="$JAVA_HOME/bin/java"
-         fi
-       else
-        JAVACMD=`which java`
-       fi
-      fi
-
-      if [ ! -x "$JAVACMD" ] ; then
-       echo "Error: JAVA_HOME is not defined correctly." 1>&2
-       echo "  We cannot execute $JAVACMD" 1>&2
-       exit 1
-      fi
-
-      exec "$JAVACMD" -jar "#{libexec}/widoco-#{version}-jar-with-dependencies.jar" "$@"''
-
-    File.write('widoco', wrapper)
-  end
-
 
   test do
     # `test do` will create, run in and delete a temporary directory.
@@ -53,6 +27,6 @@ class Widoco < Formula
     #
     # The installed folder is not in the path, so use the entire path to any
     # executables being tested: `system "#{bin}/program", "do", "something"`.
-    system "false"
+    assert_match version.to_s, shell_output("#{bin}/widoco --version")
   end
 end
