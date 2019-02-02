@@ -9,54 +9,28 @@ class Owl2jsonld < Formula
   version "0.2.1"
   sha256 "7727f3d97b047e22832c0e472e2a49e41d2319780a045fc667dc990e6b19e705"
 
+  bottle :unneeded
+  depends_on :java => "1.8+"
+
   def install
-
-    libexec.install Dir["*"]
-    bin.mkpath
-
-
-    (bin/"owl2jsonld").write <<-EOS.undent
-      #!/bin/bash
-      # resolve links - $0 may be a softlink
-
-      # If a specific java binary isn't specified search for the standard 'java' binary
-      if [ -z "$JAVACMD" ] ; then
-        if [ -n "$JAVA_HOME"  ] ; then
-         if [ -x "$JAVA_HOME/jre/sh/java" ] ; then
-         # IBM's JDK on AIX uses strange locations for the executables
-           JAVACMD="$JAVA_HOME/jre/sh/java"
-         else
-           JAVACMD="$JAVA_HOME/bin/java"
-         fi
-       else
-        JAVACMD=`which java`
-       fi
-      fi
-
-      if [ ! -x "$JAVACMD" ] ; then
-       echo "Error: JAVA_HOME is not defined correctly." 1>&2
-       echo "  We cannot execute $JAVACMD" 1>&2
-       exit 1
-      fi
-
-      exec "$JAVACMD" -jar "#{libexec}/owl2jsonld-#{version}-standalone.jar" "$@"
-    EOS
-    (bin/"owl2jsonld").chmod 0777
-    # libexec.install %w[bin]
-    # bin.install_symlink libexec/"bin/titan.sh" => "titan"
-    # bin.install_symlink libexec/"bin/rexster-console.sh" => "titan-rexster-console"
+    # Need to set JAVA_HOME manually since maven overrides 1.8 with 1.7+
+    cmd = Language::Java.java_home_cmd("1.8")
+    ENV["JAVA_HOME"] = Utils.popen_read(cmd).chomp
+    libexec.install "owl2jsonld-#{version}-standalone.jar" => "owl2jsonld.jar"
+    bin.write_jar_script libexec/"owl2jsonld.jar", "owl2jsonld"
   end
 
   test do
     # `test do` will create, run in and delete a temporary directory.
     #
-    # This test will fail and we won't accept that! It's enough to just replace
-    # "false" with the main program this formula installs, but it'd be nice if you
-    # were more thorough. Run the test with `brew test owl2jsonld`. Options passed
+    # This test will fail and we won't accept that! For Homebrew/homebrew-core
+    # this will need to be a test that verifies the functionality of the
+    # software. Run the test with `brew test Widoco`. Options passed
     # to `brew install` such as `--HEAD` also need to be provided to `brew test`.
     #
     # The installed folder is not in the path, so use the entire path to any
     # executables being tested: `system "#{bin}/program", "do", "something"`.
-    system "false"
+    assert_match version.to_s, shell_output("#{bin}/owl2jsonld --version")
   end
+
 end
