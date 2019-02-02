@@ -2,11 +2,11 @@
 class Widoco < Formula
   desc "Wizard for documenting ontologies. WIDOCO is a step by step generator of HTML templates with the documentation of your ontology. It uses the LODE environment to create part of the template."
   homepage "https://zenodo.org/badge/latestdoi/11427075"
-  version "1.4.6"
-  url "https://github.com/dgarijo/Widoco/releases/download/v1.4.6/widoco-1.4.6-jar-with-dependencies.jar"
-  sha256 "aa5027816c06e8ac77c43a62901a046daf792b272fe79d44756806a6cc783179"
+  version "1.4.7"
+  url "https://github.com/dgarijo/Widoco/releases/download/v1.4.6/widoco-1.4.7-jar-with-dependencies.jar"
+  sha256 "0d9cd3a62beb74bdc7d634ab535a11aca7dde06c5365aaebde66f3412871b8ed"
 
-  # depends_on "cmake" => :build
+
   def install
 
     libexec.install Dir["*"]
@@ -39,7 +39,7 @@ class Widoco < Formula
 
       exec "$JAVACMD" -jar "#{libexec}/widoco-#{version}-jar-with-dependencies.jar" "$@"
     EOS
-    chmod 0755, bin/"widoco"
+    chmod 0555, bin/"widoco"
   end
 
   test do
