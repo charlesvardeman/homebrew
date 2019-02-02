@@ -41,7 +41,7 @@ class Owl2jsonld < Formula
 
       exec "$JAVACMD" -jar "#{libexec}/owl2jsonld-#{version}-standalone.jar" "$@"
     EOS
-    chmod 0755, bin/"owl2jsonld"
+    (bin/"owl2jsonld").chmod 0555
     # libexec.install %w[bin]
     # bin.install_symlink libexec/"bin/titan.sh" => "titan"
     # bin.install_symlink libexec/"bin/rexster-console.sh" => "titan-rexster-console"

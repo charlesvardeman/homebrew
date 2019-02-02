@@ -39,7 +39,7 @@ class Widoco < Formula
 
       exec "$JAVACMD" -jar "#{libexec}/widoco-#{version}-jar-with-dependencies.jar" "$@"
     EOS
-    chmod 0555, bin/"widoco"
+    (bin/"widoco").chmod 0555
   end
 
   test do
