@@ -3,8 +3,8 @@
 # PLEASE REMOVE ALL GENERATED COMMENTS BEFORE SUBMITTING YOUR PULL REQUEST!
 
 class Pellet < Formula
-  desc "Pellet: An Open Source OWL DL reasoner for Java"
-  homepage "https://github.com/Complexible/pellet"
+  desc "Openllet is an OWL 2 reasoner in Java, build on top of Pellet."
+  homepage "https://github.com/Galigator/openllet"
   url "https://github.com/Complexible/pellet/archive/2.3.1.zip"
   sha256 "d7fae528d08494f7124b638d9017b336112664960c80481e020afe8feb972e0a"
   head "https://github.com/Complexible/pellet", :using => :git
