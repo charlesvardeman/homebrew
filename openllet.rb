@@ -2,7 +2,7 @@
 #                http://www.rubydoc.info/github/Homebrew/homebrew/master/frames
 # PLEASE REMOVE ALL GENERATED COMMENTS BEFORE SUBMITTING YOUR PULL REQUEST!
 
-class Pellet < Formula
+class Openllet < Formula
   desc "Openllet is an OWL 2 reasoner in Java, build on top of Pellet."
   homepage "https://github.com/Galigator/openllet"
   url "https://github.com/Complexible/pellet/archive/2.3.1.zip"
