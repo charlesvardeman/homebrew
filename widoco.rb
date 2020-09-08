@@ -7,14 +7,15 @@ class Widoco < Formula
   sha256 "ce0422906e36fdfa4fa54ef75fccef6c087c00d155dc2366977b259b938328c8"
 
   bottle :unneeded
-  depends_on :java => "1.8+"
+  depends_on java: "1.8"
 
   def install
     # Need to set JAVA_HOME manually since maven overrides 1.8 with 1.7+
-    cmd = Language::Java.java_home_cmd("1.8")
-    ENV["JAVA_HOME"] = Utils.popen_read(cmd).chomp
+    cmd = Language::Java.java_home("1.8")
+    ENV["JAVA_HOME"] = Utils.safe_popen_read(cmd).chomp
+
     libexec.install "widoco-#{version}-jar-with-dependencies.jar" => "widoco.jar"
-    bin.write_jar_script libexec/"widoco.jar", "widoco"
+    bin.write_jar_script "libexec/widoco.jar", "widoco"
   end
 
   test do
