@@ -5,7 +5,7 @@ class Tarql < Formula
   sha256 "7ad7b6233e0bea1d55775b3001fc2486d2f0424d3507e2ee8da09ebd20033774"
   license "BSD-2-Clause"
 
-  depends_on java: "1.8+"
+  depends_on :java => "1.8+"
   bottle :unneeded
 
   def shim_script(target)
