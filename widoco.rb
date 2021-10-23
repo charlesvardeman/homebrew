@@ -10,10 +10,9 @@ class Widoco < Formula
   depends_on "openjdk@8"
 
   def install
-
-    libexec.install Dir["*"]
-    bin.install libexec/"widoco"
-    bin.env_script_all_files(libexec, Language::Java.java_home_env("1.8"))
+    jar = "widoco-#{version}-jar-with-dependencies.jar"
+    libexec.install jar
+    bin.write_jar_script libexec/jar, "widoco"
   end
 
   test do
