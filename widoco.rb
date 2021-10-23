@@ -7,7 +7,7 @@ class Widoco < Formula
   sha256 "44cf3f741a192e14457495a50b23ebfa5494fcfd91ebd562708b84b43a996328"
 
   bottle :unneeded
-  depends_on :java => "1.8+"
+  depends_on "openjdk@8"
 
   def install
 
